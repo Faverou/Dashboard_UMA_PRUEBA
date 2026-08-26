@@ -49,11 +49,13 @@ try:
     st.subheader("Filtros y Detalle de Datos")
     st.dataframe(df, use_container_width=True)
     
-    # Sección de análisis visual básico
-    if len(df.select_dtypes(include=['number']).columns) > 0:
+    # Sección de análisis visual filtrando columnas válidas (excluyendo índices o nombres tipo Unnamed)
+    numeric_cols = [col for col in df.select_dtypes(include=['number']).columns if str(col) != '0' and not str(col).startswith('Unnamed')]
+    
+    if len(numeric_cols) > 0:
         st.markdown("---")
         st.subheader("Análisis Gráfico Rápido")
-        num_col = st.selectbox("Selecciona una métrica numérica para graficar", df.select_dtypes(include=['number']).columns)
+        num_col = st.selectbox("Selecciona una métrica numérica para graficar", numeric_cols)
         st.bar_chart(df[num_col].head(25))
 
 except Exception as e:
