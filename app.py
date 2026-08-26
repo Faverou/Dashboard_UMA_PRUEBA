@@ -13,6 +13,7 @@ st.markdown("---")
 
 # Ruta del archivo Excel proporcionado
 excel_file = "UMA.xlsx"
+
 @st.cache_data
 def cargar_datos(file):
     # Identificar las hojas disponibles en el libro de Excel
@@ -31,7 +32,7 @@ try:
     df = pd.read_excel(excel_file, sheet_name=selected_sheet)
     
     # Mostrar resumen de la hoja activa
-    st.subheader(bahía_titulo := f"Vista General: {selected_sheet}")
+    st.subheader(f"Vista General: {selected_sheet}")
     
     # Métricas principales (KPIs de ejemplo basados en la estructura general)
     col1, col2, col3, col4 = st.columns(4)
