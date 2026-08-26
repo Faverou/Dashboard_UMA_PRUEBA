@@ -12,8 +12,7 @@ st.title("📊 Dashboard: Programación en Curso y Consolidado UMA")
 st.markdown("---")
 
 # Ruta del archivo Excel proporcionado
-excel_file = "Programación en curso y consolidado UMA (1)_2.xlsx"
-
+excel_file = "UMA.xlsx"
 @st.cache_data
 def cargar_datos(file):
     # Identificar las hojas disponibles en el libro de Excel
