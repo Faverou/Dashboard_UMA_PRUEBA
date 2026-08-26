@@ -11,18 +11,12 @@ st.set_page_config(
 st.title("📊 Dashboard: Programación en Curso y Consolidado UMA")
 st.markdown("---")
 
-# Ruta del archivo Excel proporcionado
 excel_file = "UMA.xlsx"
 
-@st.cache_data
-def cargar_datos(file):
-    # Identificar las hojas disponibles en el libro de Excel
-    xls = pd.ExcelFile(file)
-    sheet_names = xls.sheet_names
-    return xls, sheet_names
-
 try:
-    xls, sheet_names = cargar_datos(excel_file)
+    # Obtener las hojas directamente del archivo Excel de forma limpia
+    excel_obj = pd.ExcelFile(excel_file)
+    sheet_names = excel_obj.sheet_names
     
     # Selector de hoja en la barra lateral
     st.sidebar.header("Configuración de Visualización")
@@ -34,7 +28,7 @@ try:
     # Mostrar resumen de la hoja activa
     st.subheader(f"Vista General: {selected_sheet}")
     
-    # Métricas principales (KPIs de ejemplo basados en la estructura general)
+    # Métricas principales (KPIs)
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.metric(label="Total de Registros", value=len(df))
@@ -51,10 +45,8 @@ try:
 
     st.markdown("---")
     
-    # Filtros interactivos opcionales si existen columnas de texto relevantes
-    st.subheader("Filtros y Detalle de Datos")
-    
     # Mostrar la tabla de datos interactiva
+    st.subheader("Filtros y Detalle de Datos")
     st.dataframe(df, use_container_width=True)
     
     # Sección de análisis visual básico
